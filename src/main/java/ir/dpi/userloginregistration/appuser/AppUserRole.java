@@ -1,2 +1,6 @@
-package ir.dpi.userloginregistration.appuser;public enum AppUserRole {
+package ir.dpi.userloginregistration.appuser;
+
+public enum AppUserRole {
+    USER,
+    ADMIN
 }
