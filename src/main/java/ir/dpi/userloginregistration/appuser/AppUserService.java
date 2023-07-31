@@ -4,6 +4,7 @@ import ir.dpi.userloginregistration.exception.ApiRequestException;
 import ir.dpi.userloginregistration.registration.token.ConfirmationToken;
 import ir.dpi.userloginregistration.registration.token.ConfirmationTokenService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,6 +16,7 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class AppUserService implements UserDetailsService {
 
     private final static  String USER_NOT_FOUND_MSG =
@@ -33,7 +35,8 @@ public class AppUserService implements UserDetailsService {
 
         boolean userExist = appUserRepository.findByEmail(appUser.getEmail())
                 .isPresent();
-        if (userExist){
+        if (userExist) {
+            log.info("Email {appUser} Already Taken");
             throw new ApiRequestException("Email Already Taken");
         }
         String encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());
